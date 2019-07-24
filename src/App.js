@@ -1,26 +1,78 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 
-function App() {
+let exampleData = [
+  {category: "Sporting Goods", price: "$49.99", stocked: true, name: "Football"},
+  {category: "Sporting Goods", price: "$9.99", stocked: true, name: "Baseball"},
+  {category: "Sporting Goods", price: "$29.99", stocked: false, name: "Basketball"},
+  {category: "Electronics", price: "$99.99", stocked: true, name: "iPod Touch"},
+  {category: "Electronics", price: "$399.99", stocked: false, name: "iPhone 5"},
+  {category: "Electronics", price: "$199.99", stocked: true, name: "Nexus 7"}
+];
+
+function SearchBar() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <input type="text" placeholder="Search..." />
+      <input type="checkbox" id="in-stock" />
+      <label for="in-stock">Only show products in stock</label>
     </div>
   );
 }
 
-export default App;
+function ProductTable(props) {
+  return (
+    <table>
+      <thead>
+        <tr>
+            <th>Name</th>
+            <th>Price</th>
+        </tr>
+      </thead>
+      <tbody>
+        <ProductCategoryRow category={props.products[0].category} />
+        <ProductRow product={props.products[0]} />
+      </tbody>
+    </table>
+  );
+}
+
+function ProductCategoryRow(props) {
+  return (
+    <tr>
+      <td><b>{props.category}</b></td>
+    </tr>
+  );
+}
+
+function ProductRow(props) {
+  let productName = props.product.name;
+  let price = props.product.price;
+
+  return (
+      <tr>
+          <td>{productName}</td>
+          <td>{price}</td>
+      </tr>
+  );
+}
+
+/*
+FilterableProductTable
+    SearchBar
+    ProductTable
+        ProductCategoryRow
+        ProductRow
+
+*/
+
+function FilterableProductTable() {
+  return (
+    <div className="App">
+      <SearchBar />
+      <ProductTable products={exampleData} />
+    </div>
+  );
+}
+
+export default FilterableProductTable;
