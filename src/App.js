@@ -15,12 +15,20 @@ function SearchBar() {
     <div>
       <input type="text" placeholder="Search..." />
       <input type="checkbox" id="in-stock" />
-      <label for="in-stock">Only show products in stock</label>
+      <label htmlFor="in-stock">Only show products in stock</label>
     </div>
   );
 }
 
 function ProductTable(props) {
+  function getProductRow(product) {
+    return <ProductRow product={product} />
+  }
+
+  let productRows = props.products.map(
+    getProductRow
+  );
+
   return (
     <table>
       <thead>
@@ -30,8 +38,8 @@ function ProductTable(props) {
         </tr>
       </thead>
       <tbody>
-        <ProductCategoryRow category={props.products[0].category} />
-        <ProductRow product={props.products[0]} />
+        {/* <ProductCategoryRow category={props.products[0].category} /> */}
+        {productRows}
       </tbody>
     </table>
   );
